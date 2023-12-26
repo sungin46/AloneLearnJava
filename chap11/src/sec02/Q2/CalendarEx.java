@@ -47,6 +47,13 @@ public class CalendarEx {
 		
 		
 		System.out.println(year + "년 " + month + "월 " + day + "일 " + dayOfWeek + "요일 " + hour + "시 " + minute + "분");
+		
+		//답안지 추가사항
+		String monthString = (month<10) ? ("0"+month) : (""+month);
+		String dayString = (day<10) ? ("0"+day) : (""+day);
+		String hourString = (hour<10) ? ("0"+hour) : (""+hour);
+		String minuteString = (minute<10) ? ("0"+minute) : (""+minute);
+		System.out.println(year + "년 " + monthString + "월 " + dayString + "일 " + dayOfWeek + "요일 " + hourString + "시 " + minuteString + "분");
 	}
 
 }
