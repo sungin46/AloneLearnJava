@@ -14,7 +14,7 @@ public class AddLineNumberEx {
 		int i = 0;
 		String str;
 		while((str=br.readLine()) != null) {
-			System.out.println(++i + ": " + br.readLine());
+			System.out.println(++i + ": " + str);
 		}
 		br.close();
 	}
