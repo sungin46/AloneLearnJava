@@ -3,15 +3,15 @@ package consoleNotice;
 import java.util.Scanner;
 
 public class Menu {
-	public static void showMenu(){
-		List showList = new List();
+	public void showMenu() throws Exception {
+		BoardList boardList = new BoardList();
 		Detail detail = new Detail();
 		Modify modify = new Modify();
 		Delete delete = new Delete();
 		SaveFile saveFile = new SaveFile();
 		
 		Scanner scanner = new Scanner(System.in);
-	
+
 		System.out.println("----------------------------------------------------------------");
 		System.out.println("1.목록보기 | 2.상세보기 | 3.수정하기 | 4.삭제하기 | 5.파일저장 | 6.종료");
 		System.out.println("----------------------------------------------------------------");
@@ -20,12 +20,18 @@ public class Menu {
 		String number = scanner.nextLine();
 	
 		switch(number) {
-		case "1": showList.list(); break;
+		case "1": boardList.list(); break;
 		case "2": detail.detail(); break;
 		case "3": modify.modify(); break;
 		case "4": delete.delete(); break;
 		case "5": saveFile.saveFile(); break;
-		case "6": return;
+		case "6": scanner.close(); return;
+		default : {
+			System.out.println("잘못된 입력입니다. 다시 입력하세요.");
+			showMenu();
+			}
 		}
+		
+		scanner.close();
 	}
 }
