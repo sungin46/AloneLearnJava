@@ -2,7 +2,7 @@ package consoleNotice;
 
 import java.io.Serializable;
 
-public class Board implements Serializable{
+public class Board implements Serializable {
 	private int listNum;
 	private String title;
 	private String content;
