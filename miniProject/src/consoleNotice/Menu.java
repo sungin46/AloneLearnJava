@@ -3,6 +3,10 @@ package consoleNotice;
 import java.util.Scanner;
 
 public class Menu {
+	BoardList boardList = new BoardList();
+	Detail detailList = new Detail();
+	Scanner scanner = new Scanner(System.in);
+	
 	public void showMenu() throws Exception {
 		BoardList boardList = new BoardList();
 		Detail detail = new Detail();
@@ -34,4 +38,19 @@ public class Menu {
 		
 		scanner.close();
 	}
+	
+	public void listMenu() throws Exception {
+		System.out.print("선택 : ");
+		String number = scanner.nextLine();
+		switch (number) {
+		case "1" : boardList.addList(); break;
+		case "2" : showMenu(); break;
+		default : {
+			System.out.println("잘못된 입력입니다. 다시 입력하세요.");
+			boardList.list();
+			break;
+		}
+		}
+	}
+	
 }
