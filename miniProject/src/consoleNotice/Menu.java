@@ -3,8 +3,6 @@ package consoleNotice;
 import java.util.Scanner;
 
 public class Menu {
-	BoardList boardList = new BoardList();
-	Detail detailList = new Detail();
 	Scanner scanner = new Scanner(System.in);
 	
 	public void showMenu() throws Exception {
@@ -40,6 +38,7 @@ public class Menu {
 	}
 	
 	public void listMenu() throws Exception {
+		BoardList boardList = new BoardList();
 		System.out.print("선택 : ");
 		String number = scanner.nextLine();
 		switch (number) {
@@ -53,4 +52,9 @@ public class Menu {
 		}
 	}
 	
+	public void detailMenu() throws Exception {
+		Detail detailList = new Detail();
+		System.out.print("선택 : ");
+		String number = scanner.nextLine();
+	}
 }
