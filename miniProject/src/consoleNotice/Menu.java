@@ -24,7 +24,7 @@ public class Menu {
 	    int nRLen = bis.read(byteBuff);
 	    if(nRLen < 0) {
 	    	System.out.println("------------------------");
-	    	System.out.println("처음 프로그램을 실행하셨군요!\n리스트 하나를 우선 등록해주세요!");
+	    	System.out.println("리스트가 존재하지 않습니다!\n리스트 하나를 우선 등록해주세요!");
 	    	System.out.println("------------------------");
 	    	firstAddList();
 	    } else {
@@ -96,6 +96,20 @@ public class Menu {
 			detailMenu();
 			break;
 		}
+		}
+	}
+	
+	public void modifyMenu() throws Exception {
+		Modify modify = new Modify();
+		System.out.print("선택 : ");
+		String number = scanner.nextLine();
+		switch (number) {
+		case "1": modify.selectNumber(); break;
+		case "2": showMenu(); break;
+		default:
+			System.out.println("잘못된 입력입니다. 다시 입력하세요.");
+			modifyMenu();
+			break;
 		}
 	}
 }
