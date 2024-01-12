@@ -1,6 +1,7 @@
 package consoleNotice;
 
 import java.text.SimpleDateFormat;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,51 +11,71 @@ public class Modify {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public void modify() throws Exception{
-		List<Board> addedList = AddedList.readList();
-		System.out.println("----------------------------------------------------------------");
-		for(Board board : addedList) {
-			System.out.println(board.getListNum() + "\t" + board.getTitle() + "\t" + board.getContent()
-			+ "\t" + board.getWriter() + "\t" + sdf.format(board.getDate()));
-		}
-		System.out.println("----------------------------------------------------------------");
-		System.out.println("1. 수정하기 | 2. 돌아가기");
-		System.out.println("----------------------------------------------------------------");
-		System.out.print("선택 : ");
-		String number = scanner.nextLine();
-		switch(number) {
-		case "1" : selectModify(); break;
-		case "2" : menu.showMenu(); break;
-		default : {
-			
-		}
+		try {
+			List<Board> addedList = AddedList.readList();
+			System.out.println("----------------------------------------------------------------");
+			for(Board board : addedList) {
+				System.out.println(board.getListNum() + "\t" + board.getTitle() + "\t" + board.getContent()
+				+ "\t" + board.getWriter() + "\t" + sdf.format(board.getDate()));
+			}
+			System.out.println("----------------------------------------------------------------");
+			System.out.println("1. 수정하기 | 2. 돌아가기");
+			System.out.println("----------------------------------------------------------------");
+			System.out.print("선택 : ");
+			String number = scanner.nextLine();
+			switch(number) {
+			case "1" : selectNumber(); break;
+			case "2" : menu.showMenu(); break;
+			default : {
+				System.out.println("메뉴에 없습니다. 다시 입력해주세요.");
+				modify();
+			}
+			}
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("존재하지 않는 번호입니다. 다시 입력해주세요.");
+			modify();
+		} catch (InputMismatchException e) {
+			System.out.println("한글, 영문, 특수문자는 입력할 수 없습니다. 다시 입력해주세요.");
+			modify();
+		} catch (NumberFormatException e) {
+			System.out.println("한글, 영문, 특수문자는 입력할 수 없습니다. 다시 입력해주세요.");
+			modify();
 		}
 	}
 	
-	public void selectModify() {
+	public void selectNumber() throws Exception {
 		try {
 			System.out.print("몇 번째 글을 수정하시겠습니까? : ");
-			int modifyNum = Integer.parseInt(scanner.nextLine());
-			System.out.println("----------------------------------------------------------------");
-			System.out.println("1. Title | 2. Content | 3. Writer | 4. ALL");
-			System.out.println("----------------------------------------------------------------");
-			System.out.print("어느 부분을 수정하시겠습니까? : ");
-			String number = scanner.nextLine();
-			switch (number) {
-			case "1": modifyTitle(modifyNum); break;
-			case "2": modifyContent(modifyNum); break;
-			case "3": modifyWriter(modifyNum);break;
-			case "4": modifyAll(modifyNum); break;
-			default:
-				throw new IllegalArgumentException("Unexpected value: " + number);
-			}
+			String modifyNum = scanner.nextLine();
+			AddedList.readList().get(Integer.parseInt(modifyNum)-1); // 입력된 번호를 미리 호출해봄으로서 IndexOutOfBoundsException을 체크한다.
+			selectModify(Integer.parseInt(modifyNum));
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("한글, 영문, 특수문자는 입력할 수 없습니다. 다시 입력해주세요.");
+			selectNumber();
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("목록에 없는 번호입니다. 다시 입력해주세요. (인덱스 아웃 오브 바운드)");
+			selectNumber();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e);
 		}
 		
+	}
+	
+	public void selectModify(int modifyNum) throws Exception {
+		System.out.println("----------------------------------------------------------------");
+		System.out.println("1. Title | 2. Content | 3. Writer | 4. ALL");
+		System.out.println("----------------------------------------------------------------");
+		System.out.print("어느 부분을 수정하시겠습니까? : ");
+		String number = scanner.nextLine();
+		switch (number) {
+		case "1": modifyTitle(modifyNum); break;
+		case "2": modifyContent(modifyNum); break;
+		case "3": modifyWriter(modifyNum);break;
+		case "4": modifyAll(modifyNum); break;
+		default:
+			System.out.println("한글, 영문, 특수문자 혹은 메뉴에 없는 번호는 입력할 수 없습니다. 다시 입력해주세요.");
+			selectModify(modifyNum);
+		}
 	}
 	
 	public void modifyAll(int modifyNum) throws Exception {
