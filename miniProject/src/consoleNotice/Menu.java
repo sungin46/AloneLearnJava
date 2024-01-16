@@ -110,4 +110,18 @@ public class Menu {
 		}
 		}
 	}
+	
+	public void deleteMenu() throws Exception {
+		Delete delete = new Delete();
+		System.out.print("선택 : ");
+		String number = scanner.nextLine();
+		switch(number) {
+		case "1" : delete.selectNumber(); break;
+		case "2" : showMenu(); break;
+		default : {
+			System.out.println("메뉴에 없습니다. 다시 입력해주세요.");
+			delete.delete();
+		}
+		}
+	}
 }
