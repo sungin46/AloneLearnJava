@@ -103,10 +103,11 @@ public class Menu {
 		switch (number) {
 		case "1": modify.selectNumber(); break;
 		case "2": showMenu(); break;
-		default:
+		default:{
 			System.out.println("잘못된 입력입니다. 다시 입력하세요.");
-			modifyMenu();
+			modify.modify();
 			break;
+		}
 		}
 	}
 }

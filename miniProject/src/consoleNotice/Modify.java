@@ -20,18 +20,9 @@ public class Modify {
 				+ "\t" + board.getWriter() + "\t" + sdf.format(board.getDate()));
 			}
 			System.out.println("----------------------------------------------------------------");
-			System.out.println("1. 수정하기 | 2. 돌아가기");
+			System.out.println("1. 수정할 번호 선택 | 2. 돌아가기");
 			System.out.println("----------------------------------------------------------------");
-			System.out.print("선택 : ");
-			String number = scanner.nextLine();
-			switch(number) {
-			case "1" : selectNumber(); break;
-			case "2" : menu.showMenu(); break;
-			default : {
-				System.out.println("메뉴에 없습니다. 다시 입력해주세요.");
-				modify();
-			}
-			}
+			menu.modifyMenu();
 		} catch (IndexOutOfBoundsException e) {
 			System.out.println("존재하지 않는 번호입니다. 다시 입력해주세요.");
 			modify();
