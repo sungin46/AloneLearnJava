@@ -1,7 +1,5 @@
 package consoleNotice;
 
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
