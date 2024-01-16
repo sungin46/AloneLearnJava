@@ -57,11 +57,8 @@ public class Menu {
 			List<Board> newList = new ArrayList<Board>();
 			System.out.println("타이틀, 내용, 작가를 순서대로 입력하세요.");
 			newList.add(new Board(1, scanner.nextLine(), scanner.nextLine(), scanner.nextLine(), new Date()));
-			FileOutputStream fos = new FileOutputStream("/Users/sungin/Desktop/workspace/Eclipse/consoleBoard.db");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(newList);
-			oos.flush();
-			oos.close();
+			
+			AddedList.writeFile(newList);
 			showMenu();
 		} catch (Exception e) {
 			System.out.println("에러입니다. 에러 내용 : " + e);

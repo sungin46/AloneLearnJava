@@ -29,11 +29,8 @@ public class BoardList {
 			counter = addedList.size(); //추가할 때 카운터 변수에 리스트의 사이즈 저장
 			System.out.println("타이틀, 내용, 작가를 순서대로 입력하세요.");
 			addedList.add(new Board(++counter, scanner.nextLine(), scanner.nextLine(), scanner.nextLine(), new Date()));
-			FileOutputStream fos = new FileOutputStream("/Users/sungin/Desktop/workspace/Eclipse/consoleBoard.db");
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(addedList);
-			oos.flush();
-			oos.close();
+			
+			AddedList.writeFile(addedList);
 			list();
 		} catch (EOFException e) {
 			System.out.println("EOFException 에러입니다.");

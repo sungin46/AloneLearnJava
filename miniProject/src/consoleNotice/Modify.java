@@ -1,6 +1,9 @@
 package consoleNotice;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -48,7 +51,7 @@ public class Modify {
 			System.out.print("몇 번째 글을 수정하시겠습니까? : ");
 			String modifyNum = scanner.nextLine();
 			AddedList.readList().get(Integer.parseInt(modifyNum)-1); // 입력된 번호를 미리 호출해봄으로서 IndexOutOfBoundsException을 체크한다.
-			selectModify(Integer.parseInt(modifyNum));
+			selectModify(Integer.parseInt(modifyNum) - 1);
 		} catch (NumberFormatException e) {
 			System.out.println("한글, 영문, 특수문자는 입력할 수 없습니다. 다시 입력해주세요.");
 			selectNumber();
@@ -79,22 +82,58 @@ public class Modify {
 	}
 	
 	public void modifyAll(int modifyNum) throws Exception {
-		Board modifyList = AddedList.readList().get(modifyNum - 1);
-		System.out.println("전체 수정 - " + modifyNum);
+		// get까지 붙으면 List로 가져오지 못하니 List 객체로 가져올 수 있도록 한다.
+		List<Board> modifyList = AddedList.readList();
+		System.out.println("현재 제목 : " + modifyList.get(modifyNum).getTitle());
+		System.out.println("현재 내용 : " + modifyList.get(modifyNum).getContent());
+		System.out.println("현재 작가 : " + modifyList.get(modifyNum).getWriter());
+		System.out.println("수정할 제목, 내용, 작가를 순서대로 입력해주세요.");
+		modifyList.set(modifyNum, new Board((modifyNum+1), scanner.nextLine(), scanner.nextLine(), scanner.nextLine(), new Date()));
+		
+		AddedList.writeFile(modifyList);
+		
+		System.out.println(modifyList.get(modifyNum).getTitle() + "," + modifyList.get(modifyNum).getContent() + ", " + modifyList.get(modifyNum).getWriter() + ", " + modifyList.get(modifyNum).getDate());
+		System.out.println("성공적으로 수정되었습니다!");
+		menu.showMenu();
 	}
 	
 	public void modifyTitle(int modifyNum) throws Exception {
-		Board modifyList = AddedList.readList().get(modifyNum - 1);
-		System.out.println("타이틀 수정 - " + modifyNum);
+		List<Board> modifyTitle = AddedList.readList();
+		Board board = modifyTitle.get(modifyNum);
+		System.out.println("현재 제목 : " + modifyTitle.get(modifyNum).getTitle());
+		System.out.println("수정할 제목을 입력해주세요.");
+		modifyTitle.set(modifyNum, new Board((modifyNum + 1), scanner.nextLine(), board.getContent(), board.getWriter(), new Date()));
+		
+		AddedList.writeFile(modifyTitle);
+		
+		System.out.println(modifyTitle.get(modifyNum).getTitle() + "," + modifyTitle.get(modifyNum).getContent() + ", " + modifyTitle.get(modifyNum).getWriter() + ", " + modifyTitle.get(modifyNum).getDate());
+		menu.showMenu();
 	}
 	
 	public void modifyContent(int modifyNum) throws Exception {
-		Board modifyList = AddedList.readList().get(modifyNum - 1);
-		System.out.println("컨텐츠 수정 - " + modifyNum);
+		List<Board> modifyContent = AddedList.readList();
+		Board board = modifyContent.get(modifyNum);
+		System.out.println("현재 내용 : " + modifyContent.get(modifyNum).getContent());
+		System.out.println("수정할 내용을 입력해주세요.");
+		modifyContent.set(modifyNum, new Board((modifyNum + 1), board.getTitle(), scanner.nextLine(), board.getWriter(), new Date()));
+		
+		AddedList.writeFile(modifyContent);
+		
+		System.out.println(modifyContent.get(modifyNum).getTitle() + "," + modifyContent.get(modifyNum).getContent() + ", " + modifyContent.get(modifyNum).getWriter() + ", " + modifyContent.get(modifyNum).getDate());
+		menu.showMenu();
 	}
 	
 	public void modifyWriter(int modifyNum) throws Exception {
-		Board modifyList = AddedList.readList().get(modifyNum - 1);
-		System.out.println("작가 수정 - " + modifyNum);
+		List<Board> modifyWriter = AddedList.readList();
+		Board board = modifyWriter.get(modifyNum);
+		System.out.println("현재 작가 : " + modifyWriter.get(modifyNum).getWriter());
+		System.out.println("수정할 작가를 입력해주세요.");
+		modifyWriter.set(modifyNum, new Board((modifyNum + 1), board.getTitle(), board.getContent(), scanner.nextLine(), new Date()));
+		
+		AddedList.writeFile(modifyWriter);
+		
+		System.out.println(modifyWriter.get(modifyNum).getTitle() + "," + modifyWriter.get(modifyNum).getContent() + ", " + modifyWriter.get(modifyNum).getWriter() + ", " + modifyWriter.get(modifyNum).getDate());
+		menu.showMenu();
+		
 	}
 }
